@@ -33,17 +33,32 @@ class MafiaGame:
         self.role = role
         self.leader = lead
         self.members = []
-        self.characters = []
+        self.ruleset = mafia_content['rulesets']['default']
         self.state = ''
 
     @property
     def size(self):
         return len(self.members)
 
+    @property
+    def unassigned_members(self):
+        return [m for m in self.members if m.character is None]
+
     def votes(self, v: str):
         return len([m for m in self.members if m.vote == v])
 
-    async def send_instructions(self):
+    async def distribute_characters(self):
+        # set mafia members
+        for _ in range(0, self.size // 3):
+            m = random.choice(self.unassigned_members)
+            m.character = Character.mafia
+        # set one player for each special rule in the ruelset
+        for character in self.ruleset:
+            m = random.choice(self.unassigned_members)
+            m.character = Character[character]
+        # set the rest of the players as innocent
+        for m in self.unassigned_members:
+            m.character = Character.innocent
         for member in self.members:
             await member.message("All character actions should be done here so you don't reveal who you are.")
             await member.message(mafia_content[member.character.name])
@@ -153,7 +168,7 @@ class Mafia:
         await self.bot.say("Votes to start: {}/{}".format(game.votes('start'), game.size))
         if game.votes('start') == game.size:
             await self.bot.say("Game is now in session.")
-            await game.send_instructions()
+            await game.distribute_characters()
             await game.night()
 
 

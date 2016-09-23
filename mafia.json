@@ -1,7 +1,7 @@
 {
   "characters": "innocent mafia detective doctor",
   "rulesets": {
-    "default": "innocent mafia detective doctor"
+    "default": "detective doctor"
   },
   "instructions": {
     "innocent": "You are innocent. You have no abilities at night. You simply participate in the discussion and vote.",
