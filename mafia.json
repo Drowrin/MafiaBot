@@ -1,0 +1,12 @@
+{
+  "characters": "innocent mafia detective doctor",
+  "rulesets": {
+    "default": "innocent mafia detective doctor"
+  },
+  "instructions": {
+    "innocent": "You are innocent. You have no abilities at night. You simply participate in the discussion and vote.",
+    "mafia": "You are in the mafia. You can send a message to mafia members at night with %mafia speak <message>. You can vote for who to kill with %mafia vote <name>.",
+    "detective": "You are a detective. You can discover the character of another player once per night with %investigate <player>.",
+    "doctor": "You are the doctor. You can save any player from being killed once per night with %save <name>."
+  }
+}
